@@ -19,20 +19,19 @@ class EditPost extends Component {
     }
 
     init = postId => {
-        singlePost(postId)
-            .then(data => {
-                if (data.error) {
-                    this.setState({ redirectToProfile: true })
-                } else {
-                    this.setState({
-                        id: data._id,
-                        title: data.title,
-                        body: data.body,
-                        error: ''
-                    })
-                }
-            });
-    }
+        singlePost(postId).then(data => {
+            if (data.error) {
+                this.setState({ redirectToProfile: true });
+            } else {
+                this.setState({
+                    id: data.postedBy._id,
+                    title: data.title,
+                    body: data.body,
+                    error: ""
+                });
+            }
+        });
+    };
 
     componentDidMount() {
         this.postData = new FormData();
@@ -150,7 +149,11 @@ class EditPost extends Component {
                 )}
 
                 <img style={{height: "200px", width: 'auto'}} className="img-thumbnail" src={`${process.env.REACT_APP_API_URL}/post/photo/${id}?${new Date().getTime()}`} onError={i => (i.target.src = `${DefaultPost}`)} alt={title}/>
-                {this.editPostForm(title,body)}
+                {isAuthenticated().user.role === "admin" &&
+                    this.editPostForm(title, body)}
+
+                {isAuthenticated().user._id === id &&
+                    this.editPostForm(title, body)}
             </div>
         );
     }

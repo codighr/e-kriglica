@@ -9,10 +9,10 @@ const isActive = (history, path) => {
 }
 
 const Menu = ({ history }) => (
-    <nav className="navbar navbar-expand-lg navbar-dark  static-top" style={{background:'#f28e1c'}}>
+    <nav className="navbar navbar-expand-lg navbar-dark  static-top" style={{ background: '#f28e1c' }}>
         <div className="container">
-            <a className="navbar-brand" href="#">
-                <img src={`${DefaultPost}`} style={{
+            <a className="navbar-brand" href="/">
+                <img src={`${DefaultPost}`} alt="e-Kriglica" style={{
                     height: '50px',
                     width: '100%',
                     objectFit: 'cover'
@@ -47,6 +47,13 @@ const Menu = ({ history }) => (
                                 <Link className="nav-link" style={isActive(history, "/signup")} to="/signup">Sign up</Link>
                             </li>
                         </>
+                    )}
+                    {isAuthenticated() && isAuthenticated().user.role === 'admin' && (
+                        <li className="nav-item">
+                            <Link to={`/admin`} style={isActive(history, `/admin`)} className="nav-link">
+                                Admin
+                    </Link>
+                        </li>
                     )}
                     {isAuthenticated() && (
                         <>

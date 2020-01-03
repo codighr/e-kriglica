@@ -150,8 +150,8 @@ class Profile extends Component {
                       >
                         Edit Profile
                       </Link>
-                      {/*<DeleteUser userId={user._id} />*/}
-                      <DeleteUser />
+                      {<DeleteUser userId={user._id} />}
+                     
                     </div>
                   </div>
                 )}

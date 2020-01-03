@@ -13,15 +13,15 @@ export const create = (userId, token, post) => {
         .catch(err => console.log(err));
 };
 
-export const list = () => {
-    return fetch(`${process.env.REACT_APP_API_URL}/posts`, {
+export const list = page => {
+    return fetch(`${process.env.REACT_APP_API_URL}/posts/?page=${page}`, {
         method: "GET"
     })
         .then(response => {
             return response.json();
         })
         .catch(err => console.log(err));
-}
+};
 
 export const singlePost = (postId) => {
     return fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {

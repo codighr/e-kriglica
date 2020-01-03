@@ -67,7 +67,7 @@ class EditProfile extends Component {
     };
 
     handleChange = (name) => (event) => {
-        this.setState({ error: ""});
+        this.setState({ error: "" });
         const value = name === "photo" ? event.target.files[0] : event.target.value;
         const fileSize = name === "photo" ? event.target.files[0].size : 0;
         this.userData.set(name, value)
@@ -76,22 +76,26 @@ class EditProfile extends Component {
 
     clickSubmit = event => {
         event.preventDefault();
-        this.setState({loading: true});
+        this.setState({ loading: true });
 
         if (this.isValid()) {
-
-            //console.log(user);  
             const userId = this.props.match.params.userId;
             const token = isAuthenticated().token;
 
             update(userId, token, this.userData).then(data => {
-                if(data.error) this.setState({ error: data.error })
-                else
-                    updateUser(data,() => {
+                if (data.error) {
+                    this.setState({ error: data.error });
+                } else if (isAuthenticated().user.role === "admin") {
+                    this.setState({
+                        redirectToProfile: true
+                    });
+                } else {
+                    updateUser(data, () => {
                         this.setState({
                             redirectToProfile: true
                         });
-                    })
+                    });
+                }
             });
         }
     };
@@ -144,11 +148,15 @@ class EditProfile extends Component {
                     </div>
                 ) : (
                         ""
-                )}
+                    )}
 
-                <img style={{height: "200px", width: 'auto'}} className="img-thumbnail" src={photoUrl} onError={i => (i.target.src = `${DefaultProfile}`)} alt={name}/>
+                <img style={{ height: "200px", width: 'auto' }} className="img-thumbnail" src={photoUrl} onError={i => (i.target.src = `${DefaultProfile}`)} alt={name} />
 
-                {this.signupForm(name, email, password, about)}
+                {isAuthenticated().user.role === "admin" &&
+                    this.signupForm(name, email, password, about)}
+
+                {isAuthenticated().user._id === id &&
+                    this.signupForm(name, email, password, about)}
             </div>
         );
     }
