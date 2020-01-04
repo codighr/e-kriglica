@@ -48,8 +48,9 @@ class Posts extends Component {
                         : " Unknown";
 
                     return (
-                        <div className="card col-md-4" key={i}>
-                            <div className="card-body">
+                        
+                        <div className="card col-md-4 mt-2 mr-0,8" key={i}>
+                            <div className="card-body text-center">
                                 <img
                                     src={`${
                                         process.env.REACT_APP_API_URL
@@ -61,24 +62,27 @@ class Posts extends Component {
                                     className="img-thunbnail mb-3"
                                     style={{ height: "200px", width: "100%" }}
                                 />
-                                <h5 className="card-title">{post.title}</h5>
+                                <h5 className="card-title">{post.title.substring(0, 20)}...</h5>
                                 <p className="card-text">
-                                    {post.body.substring(0, 100)}
+                                    {post.body.substring(0, 50)}
                                 </p>
                                 <br />
-                                <p className="font-italic mark">
+                                <Link
+                                    to={`/post/${post._id}`}
+                                    className="btn btn-outline btn-success btn-sm"
+                                >
+                                    Read more
+                                </Link>
+                                <div className="card-footer">
+                                <small className="text-muted">
                                     Posted by{" "}
                                     <Link to={`${posterId}`}>
                                         {posterName}{" "}
                                     </Link>
                                     on {new Date(post.created).toDateString()}
-                                </p>
-                                <Link
-                                    to={`/post/${post._id}`}
-                                    className="btn btn-raised btn-primary btn-sm"
-                                >
-                                    Read more
-                                </Link>
+                                </small>
+                                </div>
+                                
                             </div>
                         </div>
                     );

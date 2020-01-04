@@ -96,7 +96,7 @@ class Profile extends Component {
           <div className="col-md-4">
             <img
               style={{ height: "200px", width: "auto" }}
-              className="img-thumbnail"
+              className="img-thumbnail rounded-circle"
               src={photoUrl}
               onError={i => (i.target.src = `${DefaultProfile}`)}
               alt={user.name}

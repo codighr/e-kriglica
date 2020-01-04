@@ -150,7 +150,7 @@ class EditProfile extends Component {
                         ""
                     )}
 
-                <img style={{ height: "200px", width: 'auto' }} className="img-thumbnail" src={photoUrl} onError={i => (i.target.src = `${DefaultProfile}`)} alt={name} />
+                <img style={{ height: "200px", width: 'auto' }} className="img-thumbnail rounded-circle" src={photoUrl} onError={i => (i.target.src = `${DefaultProfile}`)} alt={name} />
 
                 {isAuthenticated().user.role === "admin" &&
                     this.signupForm(name, email, password, about)}

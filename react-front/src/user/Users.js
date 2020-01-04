@@ -24,15 +24,15 @@ class Users extends Component {
     renderUsers = (users) => (
         <div className="row">{
             users.map((user, i) => (
-                <div className="card col-md-4"  key={i}>
-                    <img style={{height: "200px", width: 'auto'}} className="img-thumbnail" src={`${process.env.REACT_APP_API_URL}/user/photo/${user._id}`} onError={i => (i.target.src = `${DefaultProfile}`)} alt={user.name}/>
+                <div className="card col-md-4 mt-1 mb-1 mr-0,5 ml-0,5"  key={i}>
+                    <img style={{height: "200px", width: 'auto'}} className="img-thumbnail rounded-circle rounded mx-auto d-block mt-3" src={`${process.env.REACT_APP_API_URL}/user/photo/${user._id}`} onError={i => (i.target.src = `${DefaultProfile}`)} alt={user.name}/>
 
-                    <div className="card-body">
-                        <h5 className="card-title">{user.name}</h5>
-                        <p className="card-text">{user.email}</p>
+                    <div className="card-body text-center">
+                        <h5 className="card-title text-center">{user.name}</h5>
+                        <p className="card-text text-center">{user.email}</p>
                         <Link 
                             to={`/user/${user._id}`}
-                            className="btn btn-raised btn-primary btn-sm"
+                            className="btn btn-outline btn-success btn-sm center"
                         >
                             View Profile
                         </Link>
